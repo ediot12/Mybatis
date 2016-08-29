@@ -17,7 +17,6 @@ public class TestMain1 {
 		// TODO Auto-generated method stub
 
 		String res = "config.xml";
-
 		try {
 			InputStream is = Resources.getResourceAsStream(res);
 			SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(is);
@@ -31,6 +30,7 @@ public class TestMain1 {
 				System.out.println("regdate : " + vo.getRegdate());
 				System.out.println();
 			}
+			session.close();
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
