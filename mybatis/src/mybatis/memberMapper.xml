@@ -5,10 +5,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="member">
 
 	<insert id="addMem" parameterType="test.vo.MembersVo">
-		insert into members values(#(id),#{pwd},#{email},#{phone},sysdate)
+		insert into members values(#{id},#{pwd},#{email},#{phone},sysdate)
 	</insert>
-	<select id="getlist" resultType="test.vo.MembersVo">
+	
+	<update id="updateMem" parameterType="test.vo.MembersVo">
+		update members set pwd = #{pwd}, email = #{email}, phone = #{phone} where id = #{id}
+	</update>
+	
+	<delete id="deleteMem" parameterType="test.vo.MembersVo">
+		delete from members where id = #{id}
+	</delete>
+	
+	<select id="getlist" parameterType="String" resultType="test.vo.MembersVo">
+		select * from members where id = #{id}
+	</select>
+	
+	
+
+
+	<select id="getlist2" resultType="test.vo.MembersVo">
 		select * from members
 	</select>
-
 </mapper>

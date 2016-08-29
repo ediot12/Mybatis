@@ -2,7 +2,6 @@ package test.main;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -11,31 +10,31 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import test.vo.MembersVo;
 
-public class TestMain1 {
+public class DeleteMain {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
 		String res = "config.xml";
+		SqlSession session = null;
 		try {
 			InputStream is = Resources.getResourceAsStream(res);
 			SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(is);
-			SqlSession session = factory.openSession();
-			List<MembersVo> list = session.selectList("member.getlist2");
-			
-			
-			for (MembersVo vo : list) {
-				System.out.println("id : " + vo.getId());
-				System.out.println("pwd : " + vo.getPwd());
-				System.out.println("email : " + vo.getEmail());
-				System.out.println("phone : " + vo.getPhone());
-				System.out.println("regdate : " + vo.getRegdate());
-				System.out.println();
-			}
-			session.close();
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
+			session = factory.openSession();
+			/* MembersVo mv = new MembersVo("kkk", null, null, null, null); */
+
+			/* session.delete("member.deleteMem", mv); */
+			session.delete("member.deleteMem", session.selectOne("member.getlist", "java"));
+
+			session.commit();
 		}
+
+		catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+
 	}
 
 }
